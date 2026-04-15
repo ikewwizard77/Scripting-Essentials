@@ -1,17 +1,26 @@
 using UnityEngine;
 
+
+public enum SlamState { FLOAT, SLAM, RETURN }
+
 [RequireComponent(typeof(BoxCollider))]
 [RequireComponent(typeof(Rigidbody))]
+
 public class SlamTrigger3D : MonoBehaviour
 {
     [Header("Slam Settings")]
     public float slamSpeed = 20f;
+    public float riseSpeed = 10f;
     public float groundY = 0f;
     public bool slamOnlyOnce = true;
 
-    private bool isSlamming = false;
+    public SlamState state = SlamState.FLOAT;
+
+    //private bool isSlamming = false;
     private bool hasSlammed = false;
     private Rigidbody rb;
+
+    public Vector3 intialStart;
 
     void Awake()
     {
@@ -25,22 +34,53 @@ public class SlamTrigger3D : MonoBehaviour
         col.isTrigger = true;
     }
 
+    private void Start()
+    {
+        intialStart = transform.position;
+    }
+
     void Update()
     {
-        if (!isSlamming)
-            return;
 
-        Vector3 pos = transform.position;
+
+        if(state == SlamState.FLOAT)
+        {
+            
+        }
+
+        if(state == SlamState.SLAM)
+        {
+            Vector3 pos = transform.position;
         pos.y -= slamSpeed * Time.deltaTime;
 
         if (pos.y <= groundY)
         {
             pos.y = groundY;
-            isSlamming = false;
+            state = SlamState.RETURN;
             hasSlammed = true;
         }
 
         transform.position = pos;
+        }
+
+        if(state == SlamState.RETURN)
+        {
+            Vector3 pos = transform.position;
+            pos.y += riseSpeed * Time.deltaTime;
+
+            if(pos.y >= intialStart.y)
+            {
+                pos.y = intialStart.y;
+                state = SlamState.FLOAT;
+            }
+
+            transform.position = pos;
+        }
+
+
+
+        
+        
     }
 
     private void OnTriggerEnter(Collider other)
@@ -53,7 +93,7 @@ public class SlamTrigger3D : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             Debug.Log("PLAYER DETECTED - SLAM START");
-            isSlamming = true;
+            state = SlamState.SLAM;
         }
     }
 }
