@@ -24820,6 +24820,7 @@ GameObject:
   - component: {fileID: 941203288}
   - component: {fileID: 941203287}
   - component: {fileID: 941203286}
+  - component: {fileID: 941203289}
   m_Layer: 0
   m_Name: End (Idle)
   m_TagString: Untagged
@@ -29780,6 +29781,30 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 941203289}
+        m_TargetAssemblyTypeName: TimeSlow, Assembly-CSharp
+        m_MethodName: SlowTime
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 10
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!114 &941203289
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 941203282}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 49afcfb5548724a5faf4f6f05c2720da, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::TimeSlow
 --- !u!1 &942611534
 GameObject:
   m_ObjectHideFlags: 0
@@ -29968,6 +29993,7 @@ GameObject:
   - component: {fileID: 950113827}
   - component: {fileID: 950113828}
   - component: {fileID: 950113829}
+  - component: {fileID: 950113830}
   m_Layer: 3
   m_Name: Idle (32x32)_0
   m_TagString: Untagged
@@ -30079,7 +30105,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 950113823}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b58e542e4e133483ca34f3afb817f460, type: 3}
   m_Name: 
@@ -30128,6 +30154,19 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &950113830
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 950113823}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 233fcce5bf18e4cec9b0450e6819ec23, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::MyCharacterAnimationController
+  controller: {fileID: 1705120909}
 --- !u!1 &952022958
 GameObject:
   m_ObjectHideFlags: 0
@@ -53644,6 +53683,7 @@ GameObject:
   - component: {fileID: 1705120908}
   - component: {fileID: 1705120912}
   - component: {fileID: 1705120913}
+  - component: {fileID: 1705120914}
   m_Layer: 3
   m_Name: Player
   m_TagString: Player
@@ -53658,7 +53698,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1705120907}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 8e8cbbe35153640cea23bf58a428eab0, type: 3}
   m_Name: 
@@ -53857,6 +53897,21 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &1705120914
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1705120907}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5479feb22f6ed4251af78769aa2859f6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::MySimpleCharacterController
+  moveSpeed: 5
+  jumpForce: 3
+  gravity: -9.81
 --- !u!1001 &1732416349
 PrefabInstance:
   m_ObjectHideFlags: 0
