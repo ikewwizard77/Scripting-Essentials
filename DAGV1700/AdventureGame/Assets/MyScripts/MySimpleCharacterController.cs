@@ -6,6 +6,7 @@ using UnityEngine;
 /// </summary>
 [Tooltip("Controls basic movement of a 2D platformer character.")]
 [RequireComponent(typeof(CharacterController))]
+[RequireComponent(typeof(AudioSource))]
 public class MySimpleCharacterController : MonoBehaviour
 {
     [Tooltip("The speed at which the character moves horizontally.")]
@@ -17,14 +18,16 @@ public class MySimpleCharacterController : MonoBehaviour
     [Tooltip("The constant downward force applied by gravity.")]
     public float gravity = -9.81f;
 
+    [Tooltip("Sound played when the character jumps.")]
+    public AudioClip jumpSound;
+
     private CharacterController controller;
     private Vector3 velocity;
     private Transform thisTransform;
+    private AudioSource audioSource;
+
     private int jumpCount = 0;
     private int maxJumps = 2;
-    //add a roll to the character controller
-   
-   
 
     /// <summary>
     /// Initialize required components.
@@ -33,6 +36,7 @@ public class MySimpleCharacterController : MonoBehaviour
     {
         controller = GetComponent<CharacterController>();
         thisTransform = transform;
+        audioSource = GetComponent<AudioSource>();
     }
 
     /// <summary>
@@ -41,7 +45,6 @@ public class MySimpleCharacterController : MonoBehaviour
     private void Update()
     {
         MoveCharacter();
-        controller.Move(velocity * Time.deltaTime);
         ApplyGravity();
         KeepCharacterOnXAxis();
     }
@@ -61,6 +64,11 @@ public class MySimpleCharacterController : MonoBehaviour
         {
             velocity.y = Mathf.Sqrt(jumpForce * -2f * gravity);
             jumpCount++;
+
+            if (jumpSound != null)
+            {
+                audioSource.PlayOneShot(jumpSound);
+            }
         }
     }
 
@@ -77,7 +85,9 @@ public class MySimpleCharacterController : MonoBehaviour
         else
         {
             // Reset vertical velocity when on the ground
-            velocity.y = 0f;
+            if (velocity.y < 0f)
+                velocity.y = 0f;
+
             jumpCount = 0;
         }
 
